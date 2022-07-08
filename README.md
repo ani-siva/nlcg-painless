@@ -10,7 +10,7 @@ Includes numerical methods for
 * Preconditioned Conjugate Gradient
 * Preconditoned Nonlinear Conjugate Gradient
 
-All stored in the **\lib** folder. Including a library for basic matrix operations.
+All stored in the **libraries** folder. Including a library for basic matrix operations.
 
 ## NOTE: 
 The makefiles are sloppy and the code is far from optimized. Will implement them sometime later.
