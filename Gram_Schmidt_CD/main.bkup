@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include"matrix.h"
+#include<math.h>
+
+double beta(double** u,double** A,double** d,int row,int col,int iter)
+{
+	double* tempu = init_vect(row);
+	double* tempd = init_vect(row);
+	for(int i=0;i<row;i++)
+	{
+		tempu[i] = u[iter][i];
+		tempd[i] = d[iter][i];
+	}
+
+	double b;
+	double* uA = mat_vect(A,tempu,row,col,'c');
+	double uAd = vect_prod(uA,tempd,row);
+	double* dA = mat_vect(A,tempd,row,col,'c');
+	double dAd = vect_prod(dA,tempd,row);
+	b = -1 * uAd/dAd;
+	return b;
+
+}
+
+int main(void)
+{
+	int n = 2;
+	double** A = read_mat(n,n,"mat.input");
+	double** d = init_mat(n,n);
+
+	double** u = read_mat(n,n,"u.input");
+
+	for(int j=0;j<n;j++)
+	{
+	for(int i=0;i<n;i++)
+	{
+		double sum=0;
+		for(int k=0;k<=i-1;k++)
+			sum += beta(u,A,d,n,n,j)*d[j][k];
+		d[j][i] = u[j][i] - sum;
+	
+	}		
+	}
+
+	print_mat(d,n,n);	
+	return 0;
+
+}
